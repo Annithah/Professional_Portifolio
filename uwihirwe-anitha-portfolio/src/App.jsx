@@ -8,6 +8,7 @@ import {
   HiOutlineCog6Tooth,
   HiOutlineEnvelope,
   HiOutlinePhone,
+  HiOutlinePaperAirplane,
 } from "react-icons/hi2";
 import { FaWhatsapp, FaGithub } from "react-icons/fa";
 
@@ -388,19 +389,92 @@ function Skills() {
   );
 }
 
+const CONTACT_EMAIL = "uwihirweanithah@gmail.com";
+
+function openMailClient({ name, email, message }) {
+  const subject = encodeURIComponent(`Portfolio message from ${name}`);
+  const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+  window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+}
+
 function Contact() {
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [status, setStatus] = useState("idle");
+  const [statusNote, setStatusNote] = useState("");
+
+  function updateField(event) {
+    const { name, value } = event.target;
+    setForm((current) => ({ ...current, [name]: value }));
+  }
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    if (status === "sending") return;
+    setStatus("sending");
+    setStatusNote("");
+
+    const payload = new FormData(event.currentTarget);
+    payload.set("_captcha", "false");
+    payload.set("_template", "table");
+    payload.set("_subject", `New portfolio message from ${form.name}`);
+    payload.delete("_honey");
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 6000);
+
+    try {
+      const response = await fetch(`https://formsubmit.co/ajax/${CONTACT_EMAIL}`, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: payload,
+        signal: controller.signal,
+      });
+      const text = await response.text();
+      let data = {};
+      try {
+        data = JSON.parse(text);
+      } catch {
+        data = {};
+      }
+
+      if (data.success === true || data.success === "true") {
+        setStatus("success");
+        setStatusNote("Thanks — your message was sent to my email.");
+        setForm({ name: "", email: "", message: "" });
+        return;
+      }
+
+      if (typeof data.message === "string" && /activat/i.test(data.message)) {
+        setStatus("activate");
+        setStatusNote("Check uwihirweanithah@gmail.com (and spam) for a FormSubmit activation link, click it, then send again.");
+        return;
+      }
+    } catch {
+      // FormSubmit is blocked on some networks; fall through to mailto.
+    } finally {
+      clearTimeout(timeoutId);
+    }
+
+    openMailClient(form);
+    setStatus("success");
+    setStatusNote("Your email app should open with the message ready. Click Send and I will receive it.");
+    setForm({ name: "", email: "", message: "" });
+  }
+
   return (
     <section id="contact" className="bg-cream pb-20">
       <div className="max-w-6xl mx-auto px-6 sm:px-8">
-        <div className="bg-green rounded-[32px] p-10 sm:p-16 text-center">
-          <p className="text-gold font-medium text-sm mb-3">— Get In Touch</p>
-          <h2 className="font-display font-semibold text-3xl sm:text-4xl text-white mb-5">
-            Let's build something <span className="font-accent italic text-gold">great together</span>
-          </h2>
-          <p className="font-body text-white/70 max-w-xl mx-auto mb-10 leading-relaxed">
-            Open to full-stack roles, freelance work, and collaboration on projects
-            that need someone who can own both ends of the stack.
-          </p>
+        <div className="bg-green rounded-[32px] p-10 sm:p-16">
+          <div className="text-center">
+            <p className="text-gold font-medium text-sm mb-3">— Get In Touch</p>
+            <h2 className="font-display font-semibold text-3xl sm:text-4xl text-white mb-5">
+              Let's build something <span className="font-accent italic text-gold">great together</span>
+            </h2>
+            <p className="font-body text-white/70 max-w-xl mx-auto mb-10 leading-relaxed">
+              Open to full-stack roles, freelance work, and collaboration on projects
+              that need someone who can own both ends of the stack.
+            </p>
+          </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto text-sm">
             <a href="mailto:uwihirweanithah@gmail.com" className="focus-ring flex flex-col items-center gap-1 bg-white/10 rounded-2xl px-5 py-5 hover:bg-white/15 transition-colors">
               <HiOutlineEnvelope className="w-5 h-5 text-gold mb-1" />
@@ -423,6 +497,64 @@ function Contact() {
               <span className="text-white font-medium">github.com/Annithah</span>
             </a>
           </div>
+
+          <form onSubmit={handleSubmit} className="mt-12 max-w-2xl mx-auto text-left">
+            <p className="text-center text-white font-display font-semibold text-xl mb-6">Send me a message</p>
+            <input type="text" name="_honey" className="hidden" tabIndex={-1} autoComplete="off" />
+            <div className="grid sm:grid-cols-2 gap-4 mb-4">
+              <label className="block">
+                <span className="sr-only">Name</span>
+                <input
+                  type="text"
+                  name="name"
+                  required
+                  value={form.name}
+                  onChange={updateField}
+                  placeholder="Your name"
+                  className="w-full bg-white/10 border border-white/15 text-white placeholder:text-white/40 rounded-2xl px-5 py-3.5 focus:outline-none focus:border-gold"
+                />
+              </label>
+              <label className="block">
+                <span className="sr-only">Email</span>
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  value={form.email}
+                  onChange={updateField}
+                  placeholder="Your email"
+                  className="w-full bg-white/10 border border-white/15 text-white placeholder:text-white/40 rounded-2xl px-5 py-3.5 focus:outline-none focus:border-gold"
+                />
+              </label>
+            </div>
+            <label className="block mb-5">
+              <span className="sr-only">Message</span>
+              <textarea
+                name="message"
+                required
+                rows={5}
+                value={form.message}
+                onChange={updateField}
+                placeholder="Write your message..."
+                className="w-full bg-white/10 border border-white/15 text-white placeholder:text-white/40 rounded-2xl px-5 py-3.5 resize-y min-h-[140px] focus:outline-none focus:border-gold"
+              />
+            </label>
+            <div className="flex flex-col items-center gap-3">
+              <button
+                type="submit"
+                disabled={status === "sending"}
+                className="focus-ring flex items-center gap-3 pl-6 pr-2 py-2 bg-white text-green text-sm font-medium rounded-full hover:bg-gold transition-colors disabled:opacity-70"
+              >
+                {status === "sending" ? "Sending..." : "Send Message"}
+                <span className="w-8 h-8 rounded-full bg-green flex items-center justify-center text-white">
+                  <HiOutlinePaperAirplane className="w-4 h-4" />
+                </span>
+              </button>
+              {statusNote && (
+                <p className="text-sm text-gold text-center max-w-md">{statusNote}</p>
+              )}
+            </div>
+          </form>
         </div>
       </div>
     </section>
