@@ -2,94 +2,28 @@ import { useEffect, useState } from "react";
 import {
   HiOutlineComputerDesktop,
   HiOutlineDevicePhoneMobile,
-  HiOutlineCpuChip,
   HiOutlineServerStack,
   HiOutlineCircleStack,
   HiOutlineCog6Tooth,
   HiOutlineEnvelope,
   HiOutlinePhone,
   HiOutlinePaperAirplane,
+  HiOutlineSparkles,
 } from "react-icons/hi2";
 import { FaWhatsapp, FaGithub } from "react-icons/fa";
+import Assistant from "./components/Assistant.jsx";
+import { CONTACT, navLinks, projects, services, skills, tools } from "./data/content.js";
 
-const projects = [
-  {
-    name: "Medhub System",
-    tag: "MSRwanda · DevBreak",
-    status: "Active",
-    desc: "A health management platform built for Rwanda's citizens to streamline patient records and hospital workflows.",
-    stack: ["MERN", "MERN-Stack"],
-    link: "https://github.com/Annithah/DevBreak-MSRwanda",
-  },
-  {
-    name: "XY Shop",
-    tag: "E-Commerce Platform",
-    status: "Active",
-    desc: "A full-featured online store for browsing products, managing carts, and processing orders end to end.",
-    stack: ["JavaScript", "Full-Stack"],
-    link: "https://github.com/Annithah/XY--SHOP",
-  },
-  {
-    name: "Stock Management System",
-    tag: "Inventory Control",
-    status: "Active",
-    desc: "A PHP-based system for tracking stock levels, purchases, and sales in real time across a business.",
-    stack: ["PHP", "MySQL"],
-    link: "https://github.com/Annithah/StockManagement__PHP",
-  },
-  {
-    name: "Voting System",
-    tag: "Digital Elections",
-    status: "Active",
-    desc: "A Django powered platform enabling secure, transparent online voting and results tracking.",
-    stack: ["Python", "Django"],
-    link: "https://github.com/Annithah/VotingSystem_Django",
-  },
-  {
-    name: "Employee Management System",
-    tag: "HR Operations",
-    status: "Active",
-    desc: "A system for managing employee records, roles, and day-to-day organizational data.",
-    stack: ["Full-Stack"],
-    link: "https://github.com/Annithah/Employee_Management_System",
-  },
-  {
-    name: "Password Generator",
-    tag: "Security Utility",
-    status: "Stable",
-    desc: "A lightweight tool for instantly generating strong, randomized passwords.",
-    stack: ["JavaScript"],
-    link: "https://github.com/Annithah/PasinNove_Projects",
-  },
+const serviceIcons = [
+  HiOutlineComputerDesktop,
+  HiOutlineDevicePhoneMobile,
+  HiOutlineSparkles,
+  HiOutlineServerStack,
+  HiOutlineCircleStack,
+  HiOutlineCog6Tooth,
 ];
 
-const services = [
-  { icon: HiOutlineComputerDesktop, title: "Web Development", desc: "Responsive, full-stack web apps built with React, Node.js, and modern tooling." },
-  { icon: HiOutlineDevicePhoneMobile, title: "Mobile Application", desc: "Cross-platform mobile apps with clean UI, smooth performance, and real-world usability." },
-  { icon: HiOutlineCpuChip, title: "Machine Learning", desc: "Practical ML features from data-driven insights to intelligent automation that strengthens a product." },
-  { icon: HiOutlineServerStack, title: "API Development", desc: "Reliable server-side logic and RESTful APIs with Node.js, Express, and Laravel." },
-  { icon: HiOutlineCircleStack, title: "Database Design", desc: "Clean, efficient data models in MySQL and MongoDB that scale with the product." },
-  { icon: HiOutlineCog6Tooth, title: "System Automation", desc: "Turning manual processes — inventory, HR, elections — into dependable systems." },
-];
-
-const tools = ["JS", "PHP", "PY", "React", "Next.js", "Node", "Laravel", "Solidity", "React Native", "Flutter", "SQL", "SQLite", "PostgreSQL", "Mongo", "Git"];
-
-const skills = [
-  { label: "Languages", items: ["JavaScript", "PHP", "Python", "HTML5", "CSS3"] },
-  { label: "Frontend", items: ["React.js", "Next.js", "React Native", "Flutter", "HTML5", "CSS3", "Tailwind CSS"] },
-  { label: "Backend", items: ["Node.js", "Express.js", "Laravel", "Solidity"] },
-  { label: "Databases", items: ["MongoDB", "MySQL", "SQLite", "PostgreSQL"] },
-  { label: "Tools", items: ["Git", "GitHub", "VS Code", "Postman", "Figma", "XAMPP", "npm", "Vite"] },
-];
-
-const navLinks = [
-  { href: "#top", label: "Home" },
-  { href: "#services", label: "Services" },
-  { href: "#about", label: "About" },
-  { href: "#projects", label: "Projects" },
-];
-
-function Nav({ dark, onToggleTheme }) {
+function Nav({ dark, onToggleTheme, onOpenAssistant }) {
   const [open, setOpen] = useState(false);
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-green">
@@ -103,6 +37,9 @@ function Nav({ dark, onToggleTheme }) {
               {l.label}
             </a>
           ))}
+          <button type="button" onClick={onOpenAssistant} className="hover:text-gold transition-colors focus-ring">
+            Ask Anitha
+          </button>
         </nav>
         <div className="hidden md:flex items-center gap-3">
           <button
@@ -139,6 +76,9 @@ function Nav({ dark, onToggleTheme }) {
           {navLinks.map((l) => (
             <a key={l.href} href={l.href} onClick={() => setOpen(false)}>{l.label}</a>
           ))}
+          <button type="button" onClick={() => { setOpen(false); onOpenAssistant(); }} className="text-left">
+            Ask Anitha
+          </button>
           <a href="#contact" onClick={() => setOpen(false)} className="text-gold font-medium">Contact Me</a>
         </nav>
       )}
@@ -162,8 +102,9 @@ function Hero() {
             Based in Rwanda.
           </h1>
           <p className="font-body text-muted max-w-md mx-auto md:mx-0 text-[15px] leading-relaxed mb-8">
-            A software developer passionate about building smart, secure, and impactful
-            digital solutions — from inventory systems to digital elections.
+            I build full-stack products people actually run — AI mobile apps, company websites
+            with staff admin, and operations platforms for teams. Ask the assistant on this
+            page if you want the deeper story.
           </p>
           <div className="flex flex-wrap items-center gap-4 justify-center md:justify-start">
             <a href="#projects" className="focus-ring flex items-center gap-3 pl-6 pr-2 py-2 bg-green text-white text-sm font-medium rounded-full hover:bg-greenDeep transition-colors">
@@ -185,7 +126,7 @@ function Hero() {
             Full-Stack Developer
           </span>
           <span className="absolute top-6 -right-2 bg-surface text-ink text-xs font-medium px-4 py-2 rounded-full shadow-lg rotate-2 hidden sm:block">
-            React &amp; Node.js
+            Expo · NestJS · AI
           </span>
         </div>
       </div>
@@ -194,7 +135,7 @@ function Hero() {
 }
 
 function Marquee() {
-  const items = ["Web Development", "Mobile Application", "Machine Learning", "API Development", "Database Design", "System Automation", "Full-Stack Systems"];
+  const items = ["Web Development", "Mobile Application", "AI Features", "API Development", "Database Design", "Operations Systems", "Full-Stack Products"];
   const loop = [...items, ...items];
   return (
     <div className="overflow-hidden">
@@ -229,15 +170,18 @@ function Services() {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((s) => (
-            <div key={s.title} className="bg-card rounded-2xl p-7 hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 rounded-full bg-surface flex items-center justify-center mb-6 shadow-sm">
-                <s.icon className="w-5 h-5 text-greenFg" />
+          {services.map((s, index) => {
+            const Icon = serviceIcons[index] || HiOutlineCog6Tooth;
+            return (
+              <div key={s.title} className="bg-card rounded-2xl p-7 hover:shadow-md transition-shadow">
+                <div className="w-12 h-12 rounded-full bg-surface flex items-center justify-center mb-6 shadow-sm">
+                  <Icon className="w-5 h-5 text-greenFg" />
+                </div>
+                <h3 className="font-display font-semibold text-lg text-ink mb-2">{s.title}</h3>
+                <p className="font-body text-sm text-muted leading-relaxed mb-4">{s.desc}</p>
               </div>
-              <h3 className="font-display font-semibold text-lg text-ink mb-2">{s.title}</h3>
-              <p className="font-body text-sm text-muted leading-relaxed mb-4">{s.desc}</p>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
@@ -257,7 +201,7 @@ function About() {
             Full-Stack Dev
           </span>
           <span className="absolute bottom-6 -right-8 bg-gold text-green text-xs font-medium px-4 py-1.5 rounded-full shadow-lg rotate-6 hidden sm:block">
-            React · Node
+            Expo · NestJS
           </span>
         </div>
 
@@ -267,25 +211,26 @@ function About() {
             Who is <span className="font-accent italic text-gold">Anitha Uwihirwe?</span>
           </h2>
           <p className="font-body text-white/75 leading-relaxed max-w-xl mb-8">
-            I'm a full-stack developer who enjoys turning real operational problems —
-            tracking stock, managing staff, running elections — into systems that are
-            reliable and easy to use. I work comfortably across the stack, from React
-            and Tailwind CSS to Node.js, Laravel, and PHP, backed by MongoDB or MySQL
-            depending on what the problem needs.
+            I'm a full-stack developer who turns operational problems into products staff
+            and users can trust. Lately that means ORDINA, an AI productivity app for
+            Android and iOS; HarmonyHub, a worship ministry platform for THE CHOSEN; and
+            the MAT77 Ltd. website — a public site and staff admin on one API. I work in
+            React, TypeScript, Expo, NestJS, Node.js, and PostgreSQL, and I keep important
+            writes behind confirmation and real roles.
           </p>
 
           <div className="flex flex-wrap gap-10 mb-9 justify-center md:justify-start">
             <div>
-              <p className="font-display font-bold text-3xl text-gold">6+</p>
-              <p className="text-white/60 text-sm mt-1">Projects Completed</p>
+              <p className="font-display font-bold text-3xl text-gold">9+</p>
+              <p className="text-white/60 text-sm mt-1">Projects Shipped</p>
             </div>
             <div>
-              <p className="font-display font-bold text-3xl text-gold">8+</p>
-              <p className="text-white/60 text-sm mt-1">Technologies Covered</p>
+              <p className="font-display font-bold text-3xl text-gold">3</p>
+              <p className="text-white/60 text-sm mt-1">Featured Systems</p>
             </div>
             <div>
               <p className="font-display font-bold text-3xl text-gold">Full</p>
-              <p className="text-white/60 text-sm mt-1">Stack Development</p>
+              <p className="text-white/60 text-sm mt-1">Stack + Mobile + AI</p>
             </div>
           </div>
 
@@ -324,39 +269,68 @@ function Tools() {
   );
 }
 
+function ProjectCard({ p }) {
+  return (
+    <a
+      href={p.link}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group focus-ring block bg-card rounded-2xl p-7 hover:shadow-md hover:-translate-y-0.5 transition-all h-full"
+    >
+      <div className="flex items-center justify-between mb-4 gap-3">
+        <span className="text-xs text-muted">{p.tag}</span>
+        <div className="flex items-center gap-2 shrink-0">
+          {p.featured && (
+            <span className="text-xs px-3 py-1 rounded-full bg-gold/20 text-ink font-medium">Featured</span>
+          )}
+          {p.visibility === "private" && (
+            <span className="text-xs px-3 py-1 rounded-full bg-surface text-muted">Private</span>
+          )}
+          <span className="text-xs px-3 py-1 rounded-full bg-green/10 text-greenFg font-medium">{p.status}</span>
+        </div>
+      </div>
+      <h3 className="font-display font-semibold text-lg text-ink mb-2 group-hover:text-gold transition-colors">
+        {p.name}
+      </h3>
+      <p className="font-body text-sm text-muted leading-relaxed mb-5">{p.desc}</p>
+      <div className="flex flex-wrap gap-2 mb-5">
+        {p.stack.map((s) => (
+          <span key={s} className="text-xs px-3 py-1 rounded-full bg-surface text-muted">{s}</span>
+        ))}
+      </div>
+      <p className="text-sm text-greenFg font-medium">
+        {p.visibility === "private" ? "GitHub (private) →" : "View on GitHub →"}
+      </p>
+    </a>
+  );
+}
+
 function Projects() {
+  const featured = projects.filter((p) => p.featured);
+  const more = projects.filter((p) => !p.featured);
   return (
     <section id="projects" className="bg-cream py-20">
       <div className="max-w-6xl mx-auto px-6 sm:px-8">
         <p className="text-gold font-medium text-sm mb-2">— Portfolio</p>
-        <h2 className="font-display font-semibold text-3xl sm:text-4xl text-ink mb-12">
+        <h2 className="font-display font-semibold text-3xl sm:text-4xl text-ink mb-4">
           Featured <span className="font-accent italic text-gold">Projects</span>
         </h2>
+        <p className="font-body text-muted max-w-2xl mb-12 leading-relaxed">
+          Recent systems first: an AI mobile product, a ministry operations platform, and a
+          company website with a live staff admin. HarmonyHub and MAT77 are private repositories;
+          the architecture is available to discuss.
+        </p>
 
+        <div className="grid lg:grid-cols-3 gap-6 mb-10">
+          {featured.map((p) => (
+            <ProjectCard key={p.name} p={p} />
+          ))}
+        </div>
+
+        <h3 className="font-display font-semibold text-xl text-ink mb-6">More work</h3>
         <div className="grid sm:grid-cols-2 gap-6">
-          {projects.map((p) => (
-            <a
-              key={p.name}
-              href={p.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group focus-ring block bg-card rounded-2xl p-7 hover:shadow-md hover:-translate-y-0.5 transition-all"
-            >
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-xs text-muted">{p.tag}</span>
-                <span className="text-xs px-3 py-1 rounded-full bg-green/10 text-greenFg font-medium">{p.status}</span>
-              </div>
-              <h3 className="font-display font-semibold text-lg text-ink mb-2 group-hover:text-gold transition-colors">
-                {p.name}
-              </h3>
-              <p className="font-body text-sm text-muted leading-relaxed mb-5">{p.desc}</p>
-              <div className="flex flex-wrap gap-2 mb-5">
-                {p.stack.map((s) => (
-                  <span key={s} className="text-xs px-3 py-1 rounded-full bg-surface text-muted">{s}</span>
-                ))}
-              </div>
-              <p className="text-sm text-greenFg font-medium">Learn more →</p>
-            </a>
+          {more.map((p) => (
+            <ProjectCard key={p.name} p={p} />
           ))}
         </div>
       </div>
@@ -389,7 +363,7 @@ function Skills() {
   );
 }
 
-const CONTACT_EMAIL = "uwihirweanithah@gmail.com";
+const CONTACT_EMAIL = CONTACT.email;
 const CONTACT_WHATSAPP = "250795130378";
 
 function Contact() {
@@ -423,27 +397,27 @@ function Contact() {
               Let's build something <span className="font-accent italic text-gold">great together</span>
             </h2>
             <p className="font-body text-white/70 max-w-xl mx-auto mb-10 leading-relaxed">
-              Open to full-stack roles, freelance work, and collaboration on projects
-              that need someone who can own both ends of the stack.
+              Open to full-stack roles, freelance work, and collaboration — especially
+              products that need a web app, an admin side, a mobile client, or practical AI.
             </p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto text-sm">
-            <a href="mailto:uwihirweanithah@gmail.com" className="focus-ring flex flex-col items-center gap-1 bg-white/10 rounded-2xl px-5 py-5 hover:bg-white/15 transition-colors">
+            <a href={`mailto:${CONTACT.email}`} className="focus-ring flex flex-col items-center gap-1 bg-white/10 rounded-2xl px-5 py-5 hover:bg-white/15 transition-colors">
               <HiOutlineEnvelope className="w-5 h-5 text-gold mb-1" />
               <span className="text-white/60 text-xs">Email</span>
-              <span className="text-white font-medium break-all">uwihirweanithah@gmail.com</span>
+              <span className="text-white font-medium break-all">{CONTACT.email}</span>
             </a>
-            <a href="tel:+250795130378" className="focus-ring flex flex-col items-center gap-1 bg-white/10 rounded-2xl px-5 py-5 hover:bg-white/15 transition-colors">
+            <a href={CONTACT.phoneHref} className="focus-ring flex flex-col items-center gap-1 bg-white/10 rounded-2xl px-5 py-5 hover:bg-white/15 transition-colors">
               <HiOutlinePhone className="w-5 h-5 text-gold mb-1" />
               <span className="text-white/60 text-xs">Phone</span>
-              <span className="text-white font-medium">+250 795 130 378</span>
+              <span className="text-white font-medium">{CONTACT.phone}</span>
             </a>
-            <a href="https://wa.me/250795130378" target="_blank" rel="noopener noreferrer" className="focus-ring flex flex-col items-center gap-1 bg-white/10 rounded-2xl px-5 py-5 hover:bg-white/15 transition-colors">
+            <a href={CONTACT.whatsapp} target="_blank" rel="noopener noreferrer" className="focus-ring flex flex-col items-center gap-1 bg-white/10 rounded-2xl px-5 py-5 hover:bg-white/15 transition-colors">
               <FaWhatsapp className="w-5 h-5 text-gold mb-1" />
               <span className="text-white/60 text-xs">WhatsApp</span>
-              <span className="text-white font-medium">+250 795 130 378</span>
+              <span className="text-white font-medium">{CONTACT.phone}</span>
             </a>
-            <a href="https://github.com/Annithah" target="_blank" rel="noopener noreferrer" className="focus-ring flex flex-col items-center gap-1 bg-white/10 rounded-2xl px-5 py-5 hover:bg-white/15 transition-colors">
+            <a href={CONTACT.github} target="_blank" rel="noopener noreferrer" className="focus-ring flex flex-col items-center gap-1 bg-white/10 rounded-2xl px-5 py-5 hover:bg-white/15 transition-colors">
               <FaGithub className="w-5 h-5 text-gold mb-1" />
               <span className="text-white/60 text-xs">GitHub</span>
               <span className="text-white font-medium">github.com/Annithah</span>
@@ -585,6 +559,7 @@ export default function App() {
   const [dark, setDark] = useState(() =>
     typeof document !== "undefined" && document.documentElement.classList.contains("dark")
   );
+  const [assistantOpen, setAssistantOpen] = useState(false);
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", dark);
@@ -593,7 +568,11 @@ export default function App() {
 
   return (
     <div className="bg-cream min-h-screen text-ink font-body selection:bg-gold selection:text-ink overflow-x-hidden">
-      <Nav dark={dark} onToggleTheme={() => setDark((d) => !d)} />
+      <Nav
+        dark={dark}
+        onToggleTheme={() => setDark((d) => !d)}
+        onOpenAssistant={() => setAssistantOpen(true)}
+      />
       <main className="pt-16">
         <Hero />
         <Marquee />
@@ -605,6 +584,11 @@ export default function App() {
         <Contact />
       </main>
       <Footer />
+      <Assistant
+        open={assistantOpen}
+        onOpen={() => setAssistantOpen(true)}
+        onClose={() => setAssistantOpen(false)}
+      />
     </div>
   );
 }
