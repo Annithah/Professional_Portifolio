@@ -1,95 +1,4 @@
-export const projects = [
-  {
-    name: "ORDINA",
-    tag: "AI · Mobile Productivity",
-    status: "Active",
-    featured: true,
-    desc: "An AI-powered productivity app for Android and iOS. Natural language or voice becomes dated tasks, reminders, and a schedule — you confirm before anything is saved.",
-    stack: ["Expo", "React Native", "Express", "TypeScript", "Prisma", "SQLite", "Gemini"],
-    link: "https://github.com/Annithah/ordina",
-    visibility: "public",
-  },
-  {
-    name: "HarmonyHub",
-    tag: "THE CHOSEN · Ministry Ops",
-    status: "Active",
-    featured: true,
-    desc: "A worship ministry platform for THE CHOSEN: public team presence plus an admin workspace for members, attendance, songs, schedules, elections, reports, and a grounded AI assistant.",
-    stack: ["React", "NestJS", "PostgreSQL", "Prisma", "TypeScript", "PWA"],
-    link: "https://github.com/Annithah/HarmonyHub",
-    visibility: "private",
-  },
-  {
-    name: "MAT77 Ltd. Website",
-    tag: "Company Site · Admin + API",
-    status: "Active",
-    featured: true,
-    desc: "Public website and staff admin for MAT77 Ltd., sharing one Node.js and PostgreSQL API — inquiries, website content, and team access managed from the dashboard.",
-    stack: ["React", "Node.js", "PostgreSQL", "TypeScript", "Vite"],
-    link: "https://github.com/Annithah/mat77-website",
-    visibility: "private",
-  },
-  {
-    name: "Medhub System",
-    tag: "MSRwanda · DevBreak",
-    status: "Active",
-    featured: false,
-    desc: "A health management platform built for Rwanda's citizens to streamline patient records and hospital workflows.",
-    stack: ["MongoDB", "Express", "React", "Node.js"],
-    link: "https://github.com/Annithah/DevBreak-MSRwanda",
-    visibility: "public",
-  },
-  {
-    name: "XY Shop",
-    tag: "E-Commerce Platform",
-    status: "Active",
-    featured: false,
-    desc: "A full-featured online store for browsing products, managing carts, and processing orders end to end.",
-    stack: ["JavaScript", "Full-Stack"],
-    link: "https://github.com/Annithah/XY--SHOP",
-    visibility: "public",
-  },
-  {
-    name: "Stock Management System",
-    tag: "Inventory Control",
-    status: "Active",
-    featured: false,
-    desc: "A PHP-based system for tracking stock levels, purchases, and sales in real time across a business.",
-    stack: ["PHP", "MySQL"],
-    link: "https://github.com/Annithah/StockManagement__PHP",
-    visibility: "public",
-  },
-  {
-    name: "Voting System",
-    tag: "Digital Elections",
-    status: "Active",
-    featured: false,
-    desc: "A Django-powered platform enabling secure, transparent online voting and results tracking.",
-    stack: ["Python", "Django"],
-    link: "https://github.com/Annithah/VotingSystem_Django",
-    visibility: "public",
-  },
-  {
-    name: "Employee Management System",
-    tag: "HR Operations",
-    status: "Active",
-    featured: false,
-    desc: "A system for managing employee records, roles, and day-to-day organizational data.",
-    stack: ["Full-Stack"],
-    link: "https://github.com/Annithah/Employee_Management_System",
-    visibility: "public",
-  },
-  {
-    name: "Password Generator",
-    tag: "Security Utility",
-    status: "Stable",
-    featured: false,
-    desc: "A lightweight tool for instantly generating strong, randomized passwords.",
-    stack: ["JavaScript"],
-    link: "https://github.com/Annithah/PasinNove_Projects",
-    visibility: "public",
-  },
-];
+export { projects } from "./projects.js";
 
 export const services = [
   { title: "Web Development", desc: "Responsive, full-stack web apps with React, Node.js, and admin workspaces that clients can actually run." },
@@ -100,25 +9,108 @@ export const services = [
   { title: "Operations Systems", desc: "Turning ministry, inventory, HR, and election workflows into dependable software instead of spreadsheets." },
 ];
 
-export const tools = [
-  "JS", "TS", "PHP", "PY", "React", "Expo", "Next.js", "Node", "NestJS", "Laravel",
-  "React Native", "Flutter", "Prisma", "SQL", "PostgreSQL", "SQLite", "Mongo", "Git",
+/**
+ * Skill groups. `icon` is a key from src/components/TechIcon.jsx.
+ * `color` is the brand tint shown on hover (null = use the site's ink colour).
+ */
+export const skillGroups = [
+  {
+    label: "Frontend",
+    items: [
+      { name: "HTML5", icon: "html", color: "#E34F26" },
+      { name: "CSS3", icon: "css", color: "#1572B6" },
+      { name: "JavaScript", icon: "js", color: "#E8B500" },
+      { name: "TypeScript", icon: "ts", color: "#3178C6" },
+      { name: "React", icon: "react", color: "#149ECA" },
+      { name: "Next.js", icon: "next", color: null },
+      { name: "Tailwind CSS", icon: "tailwind", color: "#06B6D4" },
+    ],
+  },
+  {
+    label: "Backend",
+    items: [
+      { name: "Node.js", icon: "node", color: "#5FA04E" },
+      { name: "Express", icon: "express", color: null },
+      { name: "NestJS", icon: "nest", color: "#E0234E" },
+      { name: "Laravel", icon: "laravel", color: "#FF2D20" },
+      { name: "PHP", icon: "php", color: "#777BB4" },
+      { name: "Django", icon: "django", color: "#44B78B" },
+      { name: "Prisma", icon: "prisma", color: null },
+    ],
+  },
+  {
+    label: "Mobile",
+    items: [
+      { name: "React Native", icon: "react", color: "#149ECA" },
+      { name: "Expo", icon: "expo", color: null },
+      { name: "Flutter", icon: "flutter", color: "#02569B" },
+    ],
+  },
+  {
+    label: "Database",
+    items: [
+      { name: "PostgreSQL", icon: "postgres", color: "#4169E1" },
+      { name: "MySQL", icon: "mysql", color: "#4479A1" },
+      { name: "MongoDB", icon: "mongo", color: "#47A248" },
+      { name: "SQLite", icon: "sqlite", color: "#0F80CC" },
+    ],
+  },
+  {
+    label: "Data / AI",
+    items: [
+      { name: "Python", icon: "python", color: "#3776AB" },
+      { name: "Gemini", icon: "gemini", color: "#8E75B2" },
+      { name: "Grounded assistants", icon: "sparkles", color: "#E09B2D" },
+      { name: "Voice → task", icon: "mic", color: "#E09B2D" },
+    ],
+  },
+  {
+    label: "Tools",
+    items: [
+      { name: "Git", icon: "git", color: "#F05032" },
+      { name: "GitHub", icon: "github", color: null },
+      { name: "VS Code", icon: "vscode", color: "#007ACC" },
+      { name: "Postman", icon: "postman", color: "#FF6C37" },
+      { name: "Figma", icon: "figma", color: "#F24E1E" },
+      { name: "npm", icon: "npm", color: "#CB3837" },
+      { name: "Vite", icon: "vite", color: "#646CFF" },
+    ],
+  },
 ];
 
-export const skills = [
-  { label: "Languages", items: ["JavaScript", "TypeScript", "PHP", "Python", "HTML5", "CSS3"] },
-  { label: "Frontend", items: ["React.js", "Next.js", "React Native", "Expo", "Flutter", "Tailwind CSS"] },
-  { label: "Backend", items: ["Node.js", "Express.js", "NestJS", "Laravel", "Prisma"] },
-  { label: "Databases", items: ["PostgreSQL", "MongoDB", "MySQL", "SQLite"] },
-  { label: "AI & Product", items: ["Gemini", "Grounded assistants", "Voice → task", "Confirm-before-save"] },
-  { label: "Tools", items: ["Git", "GitHub", "VS Code", "Postman", "Figma", "npm", "Vite"] },
+/** Journey timeline (About section). Newest first. */
+export const timeline = [
+  {
+    when: "Jan 2027",
+    badge: "Upcoming",
+    title: "Bachelor's in Data Science",
+    place: "Starting my degree",
+    desc: "Adding data science to my engineering work, so the products I build can get smarter with data and AI.",
+  },
+  {
+    when: "Now",
+    badge: "Current role",
+    title: "Junior Software Developer",
+    place: "Enoveta · based at Norrsken",
+    desc: "Building and shipping software as part of the Enoveta team.",
+  },
+  {
+    when: "Hackathon",
+    badge: "Team pitch",
+    title: "Futuremakers Hackathon",
+    place: "Westerwelle Startup Haus Kigali",
+    desc: "Presented our solution on stage together with my team.",
+  },
 ];
+
+export const roles = ["Full-Stack Developer", "Mobile Apps", "AI Features", "APIs & Admin Systems"];
 
 export const navLinks = [
   { href: "#top", label: "Home" },
   { href: "#services", label: "Services" },
   { href: "#about", label: "About" },
   { href: "#projects", label: "Projects" },
+  { href: "#skills", label: "Skills" },
 ];
 
 export const CONTACT = {
@@ -126,5 +118,10 @@ export const CONTACT = {
   phone: "+250 795 130 378",
   phoneHref: "tel:+250795130378",
   whatsapp: "https://wa.me/250795130378",
+  whatsappNumber: "250795130378",
   github: "https://github.com/Annithah",
+  linkedin: "https://www.linkedin.com/in/uwihirwe-anitha-06191043b/",
+  // Put your CV PDF in public/ (e.g. public/Uwihirwe-Anitha-CV.pdf) and set the path here
+  // to show the "Download CV" button in the hero.
+  cv: null,
 };
