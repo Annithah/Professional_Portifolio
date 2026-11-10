@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "vite build && vite build --ssr src/entry-server.jsx --outDir dist-ssr && node scripts/prerender.mjs",
+    "preview": "vite preview",
+    "images": "python scripts/profile_images.py"
   },
   "dependencies": {
     "react": "^18.3.1",
@@ -20,7 +21,5 @@
     "tailwindcss": "^3.4.4",
     "vite": "^5.3.1"
   },
-  "description": "A React + Tailwind CSS portfolio site, built with Vite.",
-  "main": "postcss.config.js",
-  "keywords": []
+  "description": "Personal portfolio of Uwihirwe Anitha. React + Tailwind CSS, built with Vite."
 }

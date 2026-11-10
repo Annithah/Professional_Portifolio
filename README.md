@@ -67,9 +67,7 @@ I believe technology can help solve everyday problems and make people's lives ea
 
 ## Portfolio Website
 
-You can explore my complete portfolio here:
-
-****
+You can explore my complete portfolio here: **https://uwihirwe.enoveta.com/**
 
 ## Run it locally
 
@@ -86,29 +84,30 @@ Then open the local URL it prints (usually http://localhost:5173).
 npm run build
 ```
 
-This creates a `dist/` folder you can deploy anywhere static (Vercel, Netlify, GitHub Pages).
-
-## Deploy for free (recommended: Vercel)
-
-1. Push this repo to GitHub.
-2. Go to https://vercel.com, sign in with GitHub, click "New Project," and select the repo.
-3. Leave the default settings (Vite is auto-detected) and click Deploy.
-
-Netlify works the same way: drag-and-drop the `dist/` folder after `npm run build`, or connect the GitHub repo directly.
-
-## Your photo
-
-Your photo is already wired in at `public/photo.jpg` and shown in the hero section.
-To swap it for a different photo later, just replace that file with a new image
-also named `photo.jpg` (or update the `src="/photo.jpg"` path in `src/App.jsx`
-under the `Hero` component if you rename it).
+This creates `dist/`: the Vite build, pre-rendered to static HTML (`scripts/prerender.mjs`) so the page paints before
+JavaScript loads. `public/.htaccess` (caching, compression, SPA fallback) is copied into `dist/` for cPanel/Apache.
+Upload the **contents** of `dist/` to the site's document root.
 
 ## Customize content
 
-- **Projects**: edit the `projects` array at the top of `src/App.jsx`.
-- **Skills**: edit the `skills` array.
-- **Contact info**: edit the `Contact` component.
-- **Colors/fonts**: edit `tailwind.config.js` (colors) and the Google Fonts link in `index.html` (fonts).
+- **Projects**: `src/data/projects.js` — one entry per card (logo/visual, status, stack, links, filter category).
+  Real logos go in `public/assets/images/projects/`; custom SVG marks live in `src/components/ProjectMarks.jsx`.
+- **Skills / tools**: `skillGroups` in `src/data/content.js` (icons from `src/components/TechIcon.jsx`).
+- **Timeline, roles, contact links, CV**: `src/data/content.js` (set `CONTACT.cv` to a PDF in `public/` to show "Download CV").
+- **Assistant answers**: `src/data/assistant.js`.
+- **Colors/fonts**: `tailwind.config.js`, `src/index.css`, and the Google Fonts link in `index.html`.
+
+## Profile photo
+
+The untouched original is `assets/images/profile/original.jpg`. All web versions (square 400/800, portrait 480x600/960x1200,
+OG image 1200x630, favicons) are generated from it:
+
+```bash
+pip install pillow "opencv-python-headless<5"
+npm run images
+```
+
+Crop boxes are documented at the top of `scripts/profile_images.py` if the framing ever needs adjusting.
 
 ## Contact
 
