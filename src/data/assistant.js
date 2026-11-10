@@ -1,4 +1,5 @@
-import { CONTACT, projects } from "./content.js";
+import { CONTACT } from "./content.js";
+import { projects } from "./projects.js";
 
 const featuredNames = projects.filter((p) => p.featured).map((p) => p.name).join(", ");
 
@@ -27,11 +28,17 @@ In ORDINA, nothing important is saved until the user confirms. In HarmonyHub, pe
     id: "ordina",
     score: ["ordina", "productivity", "expo", "gemini", "mobile app", "android", "ios"],
     keywords: ["ordina", "productivity", "gemini", "expo", "reminder", "schedule"],
-    answer: `ORDINA is Anitha's AI-powered personal productivity app for Android and iOS (Expo + Express + Prisma + SQLite).
+    answer: `ORDINA is Anitha's AI-powered personal productivity app for Android and iOS (Expo + Express + Prisma + PostgreSQL).
 
 You tell ORDINA what you need to do — in text or, optionally, voice — and it turns that into dated tasks, reminders, and a schedule. Example: “Tomorrow I need to finish my React project, study PostgreSQL for two hours, call John at 4 PM, and go to the gym.” ORDINA proposes four tasks. You tap Confirm & save.
 
-The mobile app never holds the Gemini key; the API talks to Gemini. If Gemini is down, a built-in parser still plans multiple tasks and relative dates. Auth uses JWT, with optional Google/Apple sign-in, password reset, and an app PIN. Source: ${projects.find((p) => p.name === "ORDINA")?.link}.`,
+The mobile app never holds the Gemini key; the API talks to Gemini. If Gemini is down, a built-in parser still plans multiple tasks and relative dates. Auth uses JWT, with optional Google/Apple sign-in, password reset, and an app PIN. Source: ${projects.find((p) => p.id === "ordina")?.links.github}.`,
+  },
+  {
+    id: "dueora",
+    score: ["dueora"],
+    keywords: ["dueora"],
+    answer: `Dueora is Anitha's newest mobile app. It is still in development, so the full story is not public yet — ask her directly at ${CONTACT.email} or on LinkedIn (${CONTACT.linkedin}) if you want to hear about it early.`,
   },
   {
     id: "harmony",
@@ -62,6 +69,7 @@ Stack: React, Vite, Node.js, PostgreSQL, TypeScript. Repo: https://github.com/An
 • ORDINA — AI productivity on Expo for Android and iOS.
 • HarmonyHub — ministry operations for THE CHOSEN (members, schedules, elections, reports).
 • MAT77 Ltd. — public website + staff admin + shared API.
+• Dueora — her newest mobile app, currently in development.
 
 Earlier systems include Medhub (health workflows for Rwanda), XY Shop (e-commerce), stock and employee management, and a Django voting platform. Together they show she can ship mobile, web, APIs, and admin tools — not only landing pages.
 
@@ -79,7 +87,7 @@ Backend: Node.js, Express, NestJS, Laravel, Prisma.
 Data: PostgreSQL, MySQL, SQLite, MongoDB.
 AI in product: Gemini behind ORDINA; grounded assistants (as in HarmonyHub) that answer from live data rather than a static script.
 
-She picks the database and framework from the problem — SQLite on device-adjacent APIs, PostgreSQL for multi-user company and ministry systems, MongoDB on some MERN work.`,
+She picks the database and framework from the problem — SQLite where a light local store fits, PostgreSQL for multi-user company and ministry systems, MongoDB on some MERN work.`,
   },
   {
     id: "mobile",
@@ -107,21 +115,24 @@ HarmonyHub’s assistant is designed to be grounded in live ministry records. Sh
   },
   {
     id: "contact",
-    score: ["contact", "email", "hire", "freelance", "available", "reach", "whatsapp", "phone", "github"],
-    keywords: ["contact", "email", "hire", "whatsapp", "phone", "available", "freelance", "role"],
+    score: ["contact", "email", "hire", "freelance", "available", "reach", "whatsapp", "phone", "github", "linkedin"],
+    keywords: ["contact", "email", "hire", "whatsapp", "phone", "available", "freelance", "linkedin"],
     answer: `You can reach Anitha directly:
 
 • Email: ${CONTACT.email}
 • Phone / WhatsApp: ${CONTACT.phone}
+• LinkedIn: ${CONTACT.linkedin}
 • GitHub: ${CONTACT.github}
 
 She is open to full-stack roles, freelance projects, and collaboration — especially products that need a web app, an admin side, a mobile client, or practical AI. Use the contact form on this page, or message her on WhatsApp.`,
   },
   {
     id: "experience",
-    score: ["experience", "intern", "career", "journey", "education", "learning"],
+    score: ["experience", "intern", "career", "journey", "education", "learning", "enoveta", "norrsken", "hackathon", "futuremakers", "data science", "degree", "university", "job", "work at"],
     keywords: ["experience", "intern", "career", "journey", "learn", "goal"],
-    answer: `Anitha’s path is project-led. She has moved from PHP/MySQL operations tools and Django voting, through MERN healthcare work, into TypeScript systems with NestJS, Prisma, Expo, and AI.
+    answer: `Right now Anitha is a Junior Software Developer at Enoveta, based at Norrsken. She also presented with her team at the Futuremakers Hackathon at Westerwelle Startup Haus Kigali, and she starts a bachelor's degree in Data Science in January 2027.
+
+Her path is project-led. She has moved from PHP/MySQL operations tools and Django voting, through MERN healthcare work, into TypeScript systems with NestJS, Prisma, Expo, and AI.
 
 Her longer-term direction is to keep growing as a software professional who also uses data and AI — not to abandon full-stack engineering, but to make products smarter. She learns by shipping: ORDINA, HarmonyHub, and MAT77 are the latest proof of that.`,
   },
