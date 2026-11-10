@@ -4,3 +4,7 @@ dist
 .env
 .env.*
 *.local
+
+# downloaded build-time fonts for image scripts
+scripts/.fonts
+dist-ssr
